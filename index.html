@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FF Treinador PRO</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:20px;
+}
+
+.box{
+background:#111;
+padding:20px;
+border-radius:15px;
+}
+
+button{
+padding:15px;
+font-size:18px;
+background:#00ff88;
+border:none;
+border-radius:10px;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>FF Treinador PRO 🎯</h1>
+
+<div class="box">
+
+<input type="file" id="video">
+
+<br>
+
+<button onclick="analisar()">
+Analisar vídeo
+</button>
+
+<p id="resultado"></p>
+
+</div>
+
+<script>
+
+function analisar(){
+
+document.getElementById("resultado").innerHTML="Analisando...";
+
+setTimeout(()=>{
+
+let sensi=Math.floor(Math.random()*200);
+
+document.getElementById("resultado").innerHTML=
+
+"Sensi perfeita:<br><br>"+
+
+"Geral: "+sensi+"<br>"+
+
+"Red Dot: "+(sensi+10);
+
+},2000)
+
+}
+
+</script>
+
+</body>
+</html>
