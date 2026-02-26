@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FF Treinador PRO</title>
+
+<style>
+
+body{
+background:#0b0b0b;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:20px;
+}
+
+.box{
+background:#1a1a1a;
+padding:20px;
+border-radius:12px;
+margin-top:20px;
+}
+
+select,button{
+padding:12px;
+width:100%;
+margin-top:10px;
+border-radius:8px;
+border:none;
+font-size:16px;
+}
+
+button{
+background:#00ff88;
+color:black;
+font-weight:bold;
+}
+
+.result{
+margin-top:20px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>FF TREINADOR PRO</h1>
+
+<div class="box">
+
+<p>Selecione seu celular:</p>
+
+<select id="marca">
+
+<option>iPhone</option>
+<option>Samsung</option>
+<option>Xiaomi</option>
+<option>Motorola</option>
+<option>Outro</option>
+
+</select>
+
+<button onclick="gerar()">GERAR MELHOR SENSI</button>
+
+<div class="result" id="resultado"></div>
+
+</div>
+
+<script>
+
+function gerar(){
+
+let geral = Math.floor(Math.random()*40)+160;
+let red = geral+5;
+let x2 = geral-10;
+let x4 = geral-20;
+
+document.getElementById("resultado").innerHTML =
+
+"Geral: "+geral+"<br>"+
+"Red Dot: "+red+"<br>"+
+"2x: "+x2+"<br>"+
+"4x: "+x4+"<br><br>"+
+"Dica PRO: use HUD limpo e mira no peito";
+
+}
+
+</script>
+
+</body>
+</html>
