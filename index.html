@@ -3,73 +3,227 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="theme-color" content="#0b0b0b"/>
-  <title>FF Treinador PRO</title>
+  <meta name="theme-color" content="#0b0b12"/>
+  <title>ZYRON • Control Engine</title>
+
   <style>
     :root{
-      --bg:#0b0b0b; --panel:#121212; --panel2:#161616;
-      --text:#f2f2f2; --muted:#b9b9b9; --stroke:#242424;
-      --accent:#00ff88; --accent2:#00c7ff;
+      --bg0:#07070c;
+      --bg1:#0b0b12;
+      --text:#f2f2f7;
+      --muted:#b8b8c7;
+      --stroke:rgba(255,255,255,.10);
+
+      /* ZYRON roxo */
+      --accent:#8b5cf6;
+      --accent2:#22d3ee;
+
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --r:18px;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0; color:var(--text);
+      margin:0;
+      color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       background:
-        radial-gradient(900px 700px at 15% 10%, rgba(0,255,136,.12), transparent 55%),
-        radial-gradient(900px 700px at 85% 25%, rgba(0,199,255,.10), transparent 60%),
-        radial-gradient(1200px 900px at 50% 110%, rgba(0,255,136,.08), transparent 60%),
-        var(--bg);
+        radial-gradient(900px 700px at 15% 10%, rgba(139,92,246,.16), transparent 55%),
+        radial-gradient(900px 700px at 85% 25%, rgba(34,211,238,.10), transparent 60%),
+        radial-gradient(1200px 900px at 50% 110%, rgba(139,92,246,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
     }
-    .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 56px}
+
+    /* ===== FUNDO: partículas ===== */
+    #particles{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      opacity:.35;
+    }
+
+    /* ===== FUNDO: padrão ZYRON diagonal (texto, sem imagem) ===== */
+    .bg-logos{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+      opacity:.10;
+      mix-blend-mode:screen;
+    }
+    .bg-track{
+      position:absolute;
+      inset:-30%;
+      transform: rotate(-18deg);
+    }
+    .bg-row{
+      position:absolute;
+      left:-20%;
+      width:240%;
+      display:flex;
+      gap:14px;
+      animation: bgMove 22s linear infinite;
+      top:35%;
+    }
+    .bg-row.row2{
+      top:58%;
+      opacity:.75;
+      animation-duration: 28s;
+      animation-direction: reverse;
+    }
+    @keyframes bgMove{
+      from{ transform: translateX(25%); }
+      to{ transform: translateX(-25%); }
+    }
+    .bg-chip{
+      width:74px;
+      height:44px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-weight:1000;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.08), transparent 60%),
+        linear-gradient(135deg, rgba(139,92,246,.30), rgba(34,211,238,.12));
+      color: rgba(255,255,255,.78);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+    .bg-chip span{
+      font-size:11px;
+      opacity:.85;
+    }
+    .bg-chip .z{
+      font-size:18px;
+      letter-spacing:.06em;
+      margin-right:2px;
+      text-shadow: 0 0 14px rgba(139,92,246,.55);
+    }
+
+    /* ===== LOADER ===== */
+    #loader{
+      position:fixed; inset:0;
+      display:grid; place-items:center;
+      background:
+        radial-gradient(900px 500px at 40% 20%, rgba(139,92,246,.20), transparent 60%),
+        radial-gradient(900px 500px at 80% 40%, rgba(34,211,238,.12), transparent 60%),
+        linear-gradient(180deg, #05050b, #07070c);
+      z-index:9999;
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    #loader.hide{ opacity:0; transform:scale(1.02); pointer-events:none; }
+    .loaderBox{ text-align:center; padding:18px; }
+    .loaderLogo{
+      width:90px; height:90px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      display:grid; place-items:center;
+      margin:0 auto;
+      position:relative;
+      box-shadow: 0 20px 80px rgba(0,0,0,.55);
+    }
+    .loaderLogo b{
+      font-size:44px;
+      letter-spacing:.06em;
+      color:#fff;
+      text-shadow: 0 0 20px rgba(139,92,246,.65);
+    }
+    .loaderText{
+      margin-top:12px;
+      color:var(--muted);
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+
+    /* ===== LAYOUT ===== */
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 56px; position:relative; z-index:2;}
     .top{
       display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
       margin-bottom:14px;
     }
     .brand{display:flex;align-items:center;gap:12px}
     .logo{
-      width:44px;height:44px;border-radius:14px;
-      background: linear-gradient(135deg, rgba(0,255,136,.22), rgba(0,199,255,.18));
+      width:46px;height:46px;border-radius:16px;
+      background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(34,211,238,.14));
       border:1px solid rgba(255,255,255,.10);
       box-shadow: var(--shadow);
       display:grid;place-items:center;
-      font-weight:900; letter-spacing:.6px;
+      overflow:hidden;
     }
-    .title h1{margin:0;font-size:18px;letter-spacing:.6px}
+    .logo span{
+      font-weight:1000;
+      letter-spacing:.12em;
+    }
+    .title h1{margin:0;font-size:18px;letter-spacing:.18em;text-transform:uppercase}
     .title p{margin:2px 0 0;color:var(--muted);font-size:12px}
+
+    /* 2) Glow respirando */
+    .glow{
+      text-shadow:
+        0 0 12px rgba(139,92,246,.55),
+        0 0 32px rgba(34,211,238,.20);
+      animation: glowPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes glowPulse{
+      0%,100%{ filter: drop-shadow(0 0 0 rgba(139,92,246,0)); opacity:.92; }
+      50%{ filter: drop-shadow(0 0 22px rgba(139,92,246,.60)); opacity:1; }
+    }
+
     .pillbar{display:flex;gap:10px;flex-wrap:wrap}
     .pill{
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(18,18,18,.65);
+      background: rgba(18,18,28,.55);
       backdrop-filter: blur(10px);
       padding:10px 12px;border-radius:999px;
       display:flex;align-items:center;gap:10px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+      box-shadow: 0 10px 40px rgba(0,0,0,.28);
     }
     .pill label{font-size:12px;color:var(--muted)}
-    .pill input[type="color"]{width:26px;height:26px;border:none;background:transparent;padding:0}
-    .pill select{background:transparent;color:var(--text);border:none;outline:none;font-weight:800;font-size:12px}
-    .pill option{background:#101010}
+    .pill select{
+      background:transparent;color:var(--text);
+      border:none;outline:none;font-weight:900;font-size:12px;cursor:pointer;
+    }
+    .pill option{background:#0b0b12}
+    .pill .tag{
+      font-size:11px;
+      padding:6px 9px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
 
     .hero{
       border:1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(18,18,18,.82), rgba(12,12,12,.72));
+      background: linear-gradient(180deg, rgba(18,18,28,.75), rgba(10,10,18,.60));
       border-radius: var(--r);
       padding:16px;
       box-shadow: var(--shadow);
     }
-    .row{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+    .row{display:grid;grid-template-columns:1.08fr .92fr;gap:14px}
     @media (max-width:900px){.row{grid-template-columns:1fr}}
 
+    /* 6) Glass effect */
     .card{
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(18,18,18,.62);
+      background: rgba(18,18,28,.55);
       border-radius: 16px;
       padding:16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .card h2{margin:0 0 8px;font-size:14px;letter-spacing:.4px}
+
+    .card h2{margin:0 0 8px;font-size:14px;letter-spacing:.10em;text-transform:uppercase}
     .sub{color:var(--muted);font-size:12px;margin:0 0 14px}
 
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -78,7 +232,7 @@
     .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
     .field select,.field input[type="text"],.field input[type="range"]{
       width:100%;
-      background: rgba(10,10,10,.6);
+      background: rgba(10,10,18,.62);
       color: var(--text);
       border:1px solid rgba(255,255,255,.10);
       border-radius: 12px;
@@ -94,11 +248,13 @@
       border-radius: 14px;
       padding:12px 14px;
       font-weight:1000;
-      letter-spacing:.6px;
-      color:#08110c;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 16px 40px rgba(0,255,136,.12);
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color:#07070c;
+      background: linear-gradient(90deg, rgba(139,92,246,1), rgba(34,211,238,1));
+      box-shadow: 0 16px 40px rgba(139,92,246,.14);
       flex:1; min-width:180px;
+      transform: translateZ(0);
     }
     .btn.secondary{
       background: rgba(255,255,255,.06);
@@ -107,11 +263,17 @@
       box-shadow:none;
     }
 
+    /* 8) animação ao gerar */
+    .btn.pop{ animation: pop .22s ease; }
+    @keyframes pop{ 0%{transform:scale(1)} 60%{transform:scale(1.03)} 100%{transform:scale(1)} }
+    .resultFlash{ animation: flash .35s ease; }
+    @keyframes flash{ 0%{filter:brightness(1)} 50%{filter:brightness(1.18)} 100%{filter:brightness(1)} }
+
     .result{
       display:none;
       margin-top:12px;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(10,10,10,.55);
+      background: rgba(10,10,18,.55);
       border-radius: 16px;
       padding:14px;
     }
@@ -120,19 +282,20 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       padding:8px 10px;border-radius:999px;color:var(--muted);
-      display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;
+      display:inline-flex;gap:10px;align-items:center;flex-wrap:wrap;
     }
+    .badge b{color:#eaeafe}
     .vals{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
     @media (max-width:700px){ .vals{grid-template-columns:1fr} }
     .kv{
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(18,18,18,.55);
+      background: rgba(18,18,28,.42);
       border-radius: 14px;
       padding:12px;
       display:flex;align-items:center;justify-content:space-between;gap:10px;
     }
     .kv b{font-size:12px;color:var(--muted)}
-    .kv span{font-size:18px;font-weight:1000;letter-spacing:.6px}
+    .kv span{font-size:18px;font-weight:1000;letter-spacing:.06em}
 
     .copyRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .copy{
@@ -142,6 +305,8 @@
       color: var(--text);
       padding:11px 12px;border-radius: 14px;
       cursor:pointer;font-weight:1000;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
     .section{
@@ -150,31 +315,12 @@
       padding-top:14px;
     }
     .section h3{
-      margin:0 0 8px;font-size:13px;color:#eaeaea;letter-spacing:.35px;
+      margin:0 0 10px;
+      font-size:13px;
+      color:#eaeafe;
+      letter-spacing:.10em;
+      text-transform:uppercase;
       display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-    }
-    .list{
-      display:grid;gap:10px;
-    }
-    .item{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(18,18,18,.45);
-      border-radius: 14px;
-      padding:12px;
-      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-    }
-    .item .left{min-width:0}
-    .item .name{font-weight:900;font-size:13px}
-    .item .rec{color:var(--muted);font-size:12px;margin-top:3px}
-    .iBtn{
-      flex:0 0 auto;
-      width:28px;height:28px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-weight:1000;
-      display:grid;place-items:center;
-      cursor:pointer;
     }
     .advToggle{
       border:1px solid rgba(255,255,255,.10);
@@ -182,21 +328,43 @@
       color: var(--text);
       padding:9px 10px;border-radius:999px;
       cursor:pointer;font-weight:900;font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
-    /* Tooltip */
+    .list{display:grid;gap:10px;}
+    .itemWrap{display:grid;gap:8px;}
+    .item{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(18,18,28,.42);
+      border-radius: 14px;
+      padding:12px;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    }
+    .item .left{min-width:0}
+    .item .name{font-weight:1000;font-size:13px;letter-spacing:.02em}
+    .item .rec{color:var(--muted);font-size:12px;margin-top:3px}
+    .iBtn{
+      width:28px;height:28px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:1000;
+      display:grid;place-items:center;
+      cursor:pointer;
+      flex:0 0 auto;
+    }
     .tip{
       display:none;
-      margin-top:10px;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(10,10,10,.65);
+      background: rgba(10,10,18,.62);
       border-radius: 12px;
       padding:10px 10px;
       color: var(--muted);
       font-size:12px;
       line-height:1.35;
     }
-    .tip strong{color:#eaeaea}
+    .tip strong{color:#eaeafe}
 
     .note{
       margin-top:12px;
@@ -205,33 +373,59 @@
       background: rgba(255,255,255,.04);
       padding:10px 12px;border-radius: 14px;
     }
+
+    /* rodapé mini */
+    .footer{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:11px;
+      opacity:.92;
+    }
   </style>
 </head>
 
 <body>
+  <!-- 3) Partículas -->
+  <canvas id="particles"></canvas>
+
+  <!-- Fundo diagonal ZYRON -->
+  <div class="bg-logos" aria-hidden="true">
+    <div class="bg-track">
+      <div class="bg-row" id="bgRow1"></div>
+      <div class="bg-row row2" id="bgRow2"></div>
+    </div>
+  </div>
+
+  <!-- 7) Loading -->
+  <div id="loader" aria-hidden="true">
+    <div class="loaderBox">
+      <div class="loaderLogo"><b class="glow">Z</b></div>
+      <div class="loaderText">Carregando ZYRON…</div>
+    </div>
+  </div>
+
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <div class="logo">FF</div>
+        <div class="logo"><span class="glow">Z</span></div>
         <div class="title">
-          <h1>FF TREINADOR PRO</h1>
-          <p>Sensi (0–200) + Config do celular + Otimização (com ⓘ e Avançado)</p>
+          <h1 class="glow">ZYRON</h1>
+          <p>Control Engine • Sensi (0–200) + Config + Otimização + Dicas</p>
         </div>
       </div>
 
       <div class="pillbar">
         <div class="pill">
-          <label>Cor do tema</label>
-          <input id="accent" type="color" value="#00ff88"/>
-        </div>
-        <div class="pill">
           <label>Perfil</label>
           <select id="preset">
-            <option value="balanced">Equilibrado (recomendado)</option>
+            <option value="balanced">Equilibrado</option>
             <option value="rush">Rush / agressivo</option>
             <option value="precise">Precisão / controle</option>
             <option value="low">Controle (mais baixo)</option>
           </select>
+        </div>
+        <div class="pill">
+          <span class="tag">ZYRON • PRO</span>
         </div>
       </div>
     </div>
@@ -239,9 +433,9 @@
     <section class="hero">
       <div class="row">
         <!-- FORM -->
-        <div class="card">
-          <h2>1) Gerar</h2>
-          <p class="sub">Escolha iOS/Android. Ao gerar, vai aparecer também a config do sistema + otimização.</p>
+        <div class="card" id="formCard">
+          <h2>Gerar</h2>
+          <p class="sub">Gera a sensi e mostra o pacote completo do seu sistema (iOS/Android). Explicações no ⓘ. “Avançado” opcional.</p>
 
           <div class="grid">
             <div class="field">
@@ -250,7 +444,7 @@
                 <option value="ios">iOS (iPhone)</option>
                 <option value="android">Android</option>
               </select>
-              <small>Isso decide qual “Config do Celular” vai aparecer no resultado.</small>
+              <small>Isso muda as configs e otimização que aparecem no resultado.</small>
             </div>
 
             <div class="field">
@@ -264,7 +458,7 @@
                 <option>POCO</option>
                 <option>Outro Android</option>
               </select>
-              <small>Dica: selecione de acordo com seu aparelho.</small>
+              <small>Android usa marca para sugerir DPI seguro. iPhone não usa DPI.</small>
             </div>
 
             <div class="field">
@@ -280,7 +474,7 @@
                 <option value="90">90 FPS</option>
                 <option value="120">120 FPS</option>
               </select>
-              <small>FPS maior costuma pedir um pouco mais de controle.</small>
+              <small>FPS maior → tende a pedir mais controle (passos menores).</small>
             </div>
 
             <div class="field">
@@ -291,7 +485,7 @@
                 <option value="mid">Médio alcance</option>
                 <option value="long">Longo alcance</option>
               </select>
-              <small>Isso ajusta velocidade x estabilidade.</small>
+              <small>Rush puxa mais rápido. Longo fica mais estável.</small>
             </div>
 
             <div class="field">
@@ -302,19 +496,20 @@
           </div>
 
           <div class="actions">
-            <button class="btn" id="gen">GERAR</button>
-            <button class="btn secondary" id="reset">RESET</button>
+            <button class="btn" id="gen">Gerar pacote</button>
+            <button class="btn secondary" id="reset" type="button">Reset</button>
           </div>
 
           <div class="note">
-            ⚠️ O site não altera o sistema sozinho. Ele te mostra o que ajustar e por quê.
+            ⚠️ O ZYRON não “mexe no seu celular”. Ele te mostra o melhor ajuste e como aplicar.
+            Em Android, DPI extremo pode bagunçar a interface — por isso o ZYRON limita em faixa segura.
           </div>
         </div>
 
         <!-- RESULT -->
         <div class="card">
-          <h2>2) Resultado</h2>
-          <p class="sub">Sensi + Config do celular + Otimização (com ⓘ e “Avançado”).</p>
+          <h2>Resultado</h2>
+          <p class="sub">Sensi + Config do sistema + Otimização + Dicas. Copiar já vem com marca d’água ZYRON.</p>
 
           <div class="result" id="result">
             <div class="badge" id="badge"></div>
@@ -329,13 +524,13 @@
             </div>
 
             <div class="copyRow">
-              <button class="copy" id="copyOne">COPIAR (RESUMO)</button>
-              <button class="copy" id="copyAll">COPIAR (COMPLETO)</button>
+              <button class="copy" id="copyOne" type="button">Copiar resumo</button>
+              <button class="copy" id="copyAll" type="button">Copiar completo</button>
             </div>
 
             <div class="section">
               <h3>
-                <span id="osTitle">Config do Celular</span>
+                <span id="osTitle">Config do sistema</span>
                 <button class="advToggle" id="advBtn" type="button">Mostrar avançado</button>
               </h3>
 
@@ -351,8 +546,13 @@
               <div class="list" id="optList"></div>
             </div>
 
-            <div class="note">
-              Ajuste fino rápido: se <b>passa do alvo</b> → Geral -4. Se <b>não puxa</b> → Geral +4. Tremedeira no 4x → 4x -6.
+            <div class="section">
+              <h3><span>Dicas ZYRON</span></h3>
+              <div class="list" id="tipsList"></div>
+            </div>
+
+            <div class="footer">
+              Ajuste fino: se <b>passa do alvo</b> → Geral -4. Se <b>não puxa</b> → Geral +4. Tremedeira no 4x → 4x -6.
             </div>
           </div>
         </div>
@@ -365,34 +565,83 @@
   const clamp = (n,min,max)=>Math.max(min, Math.min(max,n));
   const round = (n)=>Math.round(n);
 
-  // Theme
-  function setAccent(hex){
-    document.documentElement.style.setProperty("--accent", hex);
-    document.documentElement.style.setProperty("--accent2", "#00c7ff");
-    localStorage.setItem("ff_accent", hex);
+  // ===== Fundo: chips ZYRON =====
+  function fillBgRow(elId, count=30){
+    const el = document.getElementById(elId);
+    if(!el) return;
+    el.innerHTML = "";
+    for(let i=0;i<count;i++){
+      const d = document.createElement("div");
+      d.className = "bg-chip";
+      d.innerHTML = `<span><span class="z">Z</span>YRON</span>`;
+      el.appendChild(d);
+    }
   }
-  const accent = $("accent");
-  const savedAccent = localStorage.getItem("ff_accent");
-  if(savedAccent){ accent.value = savedAccent; setAccent(savedAccent); }
-  accent.addEventListener("input", e=>setAccent(e.target.value));
+  fillBgRow("bgRow1", 34);
+  fillBgRow("bgRow2", 30);
 
-  // Slider text
+  // ===== 3) Partículas (roxo) =====
+  (() => {
+    const c = document.getElementById('particles');
+    const ctx = c.getContext('2d');
+    let w, h, parts;
+
+    const resize = () => {
+      w = c.width = window.innerWidth;
+      h = c.height = window.innerHeight;
+      const n = Math.min(95, Math.floor((w*h)/18000));
+      parts = Array.from({length:n}, () => ({
+        x: Math.random()*w, y: Math.random()*h,
+        r: 0.6 + Math.random()*1.8,
+        vx: -0.15 - Math.random()*0.35,
+        vy: -0.05 + Math.random()*0.1,
+        a: 0.12 + Math.random()*0.35
+      }));
+    };
+
+    const tick = () => {
+      ctx.clearRect(0,0,w,h);
+      for (const p of parts){
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -10) p.x = w+10;
+        if (p.y < -10) p.y = h+10;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = `rgba(139,92,246,${p.a})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('resize', resize);
+    resize(); tick();
+  })();
+
+  // ===== 7) Loader =====
+  window.addEventListener('load', () => {
+    const l = document.getElementById('loader');
+    setTimeout(() => l.classList.add('hide'), 450);
+  });
+
+  // ===== slider text =====
   const control = $("control");
   const controlTxt = $("controlTxt");
   function updateControlTxt(){ controlTxt.textContent = `${control.value}/100`; }
   control.addEventListener("input", updateControlTxt);
   updateControlTxt();
 
-  // Info row builder (with ⓘ)
+  // ===== UI: item + tooltip (ⓘ) =====
   function itemRow({name, rec, tip}){
     const wrap = document.createElement("div");
-    wrap.className = "item";
+    wrap.className = "itemWrap";
+
+    const row = document.createElement("div");
+    row.className = "item";
 
     const left = document.createElement("div");
     left.className = "left";
     left.innerHTML = `<div class="name">${name}</div><div class="rec">${rec}</div>`;
 
-    const right = document.createElement("div");
     const btn = document.createElement("button");
     btn.className = "iBtn";
     btn.type = "button";
@@ -400,160 +649,49 @@
 
     const tipBox = document.createElement("div");
     tipBox.className = "tip";
-    tipBox.innerHTML = `<strong>O que faz:</strong> ${tip}`;
+    tipBox.innerHTML = `<strong>Explicação:</strong> ${tip}`;
 
     btn.addEventListener("click", ()=>{
       tipBox.style.display = (tipBox.style.display === "block") ? "none" : "block";
     });
 
-    right.appendChild(btn);
-    wrap.appendChild(left);
-    wrap.appendChild(right);
-
-    // tip abaixo
-    const outer = document.createElement("div");
-    outer.appendChild(wrap);
-    outer.appendChild(tipBox);
-    return outer;
+    row.appendChild(left);
+    row.appendChild(btn);
+    wrap.appendChild(row);
+    wrap.appendChild(tipBox);
+    return wrap;
   }
 
-  function buildIosLists(){
-    const main = [
-      {
-        name:"Toque Tátil (Haptic Touch)",
-        rec:"Recomendado: Rápido",
-        tip:"Deixa algumas ações do sistema mais imediatas. Pode melhorar sensação de resposta. Não altera a sensi do FF diretamente, mas pode reduzir sensação de atraso."
-      },
-      {
-        name:"AssistiveTouch — Sensibilidade do rastreamento",
-        rec:"Recomendado: 80% a 90%",
-        tip:"Controla a resposta do ponteiro do AssistiveTouch. Só influencia se você usa AssistiveTouch/ponteiro para jogar. Se usa, isso muda MUITO a sensação de mira."
-      },
-      {
-        name:"AssistiveTouch — Tolerância de movimento",
-        rec:"Recomendado: Alta (80%+)",
-        tip:"Define quanto você pode mover sem “quebrar” o gesto. Alta tende a deixar a mira mais estável (menos tremida) quando usando AssistiveTouch."
-      },
-      {
-        name:"Cursor móvel (se estiver usando)",
-        rec:"Recomendado: 28 a 35 (ex.: 31)",
-        tip:"Velocidade do cursor/ponteiro (acessibilidade). Só impacta se você usa cursor/ponteiro. Ajusta estabilidade x velocidade."
-      }
-    ];
+  // ===== Helpers para configs =====
+  function pct(n){ return `${clamp(round(n), 0, 100)}%`; }
 
-    const advanced = [
-      {
-        name:"Controle Assistivo — Ciclos",
-        rec:"Avançado: 3 a 5",
-        tip:"Quantas vezes o sistema repete a varredura. Só faz sentido se você joga com Controle Assistivo ligado (o que não é comum). Pode mudar sensação de atraso/estabilidade do input."
-      },
-      {
-        name:"Controle Assistivo — Tempo de escaneamento",
-        rec:"Avançado: médio",
-        tip:"Velocidade da varredura do Controle Assistivo. Só vale se estiver usando Controle Assistivo. Fora disso, não muda o FF."
-      },
-      {
-        name:"Controle Assistivo — Pausa no primeiro item",
-        rec:"Avançado: desligado",
-        tip:"Pausa adicional na varredura. Pode causar sensação de atraso. Só vale com Controle Assistivo ativo."
-      }
-    ];
-
-    const opt = [
-      {
-        name:"Modo Pouca Energia",
-        rec:"Recomendado: DESLIGADO ao jogar",
-        tip:"Pode reduzir desempenho e aumentar stutter/atraso. Use desligado enquanto joga."
-      },
-      {
-        name:"Atualização em 2º plano",
-        rec:"Recomendado: Desativar apps que não precisa",
-        tip:"Menos coisa rodando = menos oscilação de desempenho e aquecimento."
-      },
-      {
-        name:"Brilho",
-        rec:"Recomendado: 70% a 90%",
-        tip:"Ajuda visibilidade e consistência. Brilho muito baixo piora leitura do alvo e pode dar sensação de mira “imprecisa”."
-      },
-      {
-        name:"Notificações / Foco",
-        rec:"Recomendado: Ativar modo Foco/Jogo",
-        tip:"Evita travadinhas e interrupções durante partida."
-      }
-    ];
-    return {main, advanced, opt};
+  function safeDpiRange(brand){
+    // faixas seguras (as que não quebram interface na maioria)
+    // (ZYRON limita a faixa PRO mais usada)
+    if(brand === "Samsung") return {min:411, recMin:411, recMax:480, max:600};
+    if(brand === "Xiaomi" || brand === "POCO") return {min:392, recMin:400, recMax:480, max:540};
+    if(brand === "Motorola") return {min:411, recMin:420, recMax:480, max:540};
+    if(brand === "Realme") return {min:392, recMin:400, recMax:460, max:520};
+    return {min:392, recMin:411, recMax:480, max:520};
   }
 
-  function buildAndroidLists(){
-    const main = [
-      {
-        name:"DPI / Menor largura (Opções do desenvolvedor)",
-        rec:"Recomendado: só ajustar pouco (±20)",
-        tip:"DPI muda o tamanho de tudo na tela. Pode ajudar precisão e HUD, mas valores extremos podem piorar e deixar o sistema estranho. Ajuste com cuidado."
-      },
-      {
-        name:"Sensibilidade de toque (se o aparelho tiver)",
-        rec:"Recomendado: Médio/Alto",
-        tip:"Alguns Android têm opção de sensibilidade de toque. Pode melhorar resposta com película ou dedo mais seco."
-      },
-      {
-        name:"Taxa de atualização (Hz)",
-        rec:"Recomendado: Alta / Máxima",
-        tip:"60/90/120Hz melhora fluidez e controle de mira (se o aparelho suportar)."
-      },
-      {
-        name:"Modo Game / Game Booster (se existir)",
-        rec:"Recomendado: Ativado",
-        tip:"Prioriza CPU/GPU e reduz notificações. Ajuda estabilidade."
-      }
-    ];
-
-    const advanced = [
-      {
-        name:"Escala de animação (Dev options)",
-        rec:"Avançado: 0.5x ou 0x",
-        tip:"Diminui animações do sistema (sensação mais rápida). Não muda sensi do FF, mas melhora “agilidade” fora do jogo."
-      },
-      {
-        name:"Forçar 4x MSAA (Dev options)",
-        rec:"Avançado: geralmente NÃO",
-        tip:"Pode aumentar qualidade mas piora desempenho em muitos aparelhos. Para FF, geralmente não compensa."
-      },
-      {
-        name:"Limite de processos em segundo plano",
-        rec:"Avançado: padrão / leve redução",
-        tip:"Pode ajudar em aparelhos fracos, mas exagerar pode quebrar notificações e apps."
-      }
-    ];
-
-    const opt = [
-      {
-        name:"Economia de bateria",
-        rec:"Recomendado: DESLIGADA ao jogar",
-        tip:"Economia limita desempenho e aumenta delay."
-      },
-      {
-        name:"Apps em segundo plano",
-        rec:"Recomendado: fechar os pesados",
-        tip:"Fecha redes sociais/gravadores pesados. Menos RAM/CPU ocupada = menos travas."
-      },
-      {
-        name:"Aquecimento",
-        rec:"Recomendado: evitar jogar carregando",
-        tip:"Aquecimento derruba desempenho (thermal throttling). Cooler ajuda muito."
-      },
-      {
-        name:"Armazenamento",
-        rec:"Recomendado: manter espaço livre",
-        tip:"Armazenamento cheio pode piorar desempenho geral do sistema."
-      }
-    ];
-
-    return {main, advanced, opt};
+  function pickDpi(range, vibe){
+    // vibe: 0..1 (0=controle, 1=rápido)
+    const base = range.recMin + (range.recMax - range.recMin) * vibe;
+    // arredonda em “degraus” comuns
+    const steps = [392, 400, 411, 423, 440, 460, 480, 500, 520];
+    let best = steps[0], bestD = Infinity;
+    for(const s of steps){
+      const d = Math.abs(s - base);
+      if(d < bestD){ bestD = d; best = s; }
+    }
+    // garante dentro do recomendado
+    best = clamp(best, range.recMin, range.recMax);
+    return best;
   }
 
-  // Sensi generator
-  function generateSensi(){
+  // ===== Generator sensi =====
+  function generatePack(){
     const os = $("os").value;
     const brand = $("brand").value;
     const model = $("model").value.trim();
@@ -562,6 +700,76 @@
     const userControl = Number($("control").value);
     const preset = $("preset").value;
 
+    // 8) animação ao gerar
+    const genBtn = $("gen");
+    genBtn.classList.remove("pop");
+    void genBtn.offsetWidth;
+    genBtn.classList.add("pop");
+// ===== CONFIG ANDROID V2 (SEM DEV) =====
+
+let androidConfig = "";
+
+if(os === "Android"){
+
+let touch = "";
+let dpi = "";
+let accel = "";
+
+if(brand === "Samsung"){
+
+touch = "Sensibilidade do toque: Alta";
+dpi = "Zoom da tela: Padrão";
+accel = "Aceleração do ponteiro: Desativada";
+
+}
+
+else if(brand === "Xiaomi" || brand === "POCO"){
+
+touch = "Modo rápido ativado";
+dpi = "Tamanho da interface: Pequeno";
+accel = "Aceleração: Desativada";
+
+}
+
+else if(brand === "Motorola"){
+
+touch = "Velocidade do ponteiro: Média-Alta";
+dpi = "Tamanho da tela: Pequeno";
+accel = "Aceleração: Desativada";
+
+}
+
+else{
+
+touch = "Sensibilidade do toque: Alta";
+dpi = "Interface: Pequena";
+accel = "Aceleração: Desativada";
+
+}
+
+androidConfig = `
+
+📱 CONFIG ANDROID PRO
+
+• ${touch}
+• ${dpi}
+• ${accel}
+
+⚡ RESULTADO:
+
+✔ menos delay
+✔ mira mais solta
+✔ mais precisão
+
+`;
+
+}
+    const formCard = $("formCard");
+    formCard.classList.remove("resultFlash");
+    void formCard.offsetWidth;
+    formCard.classList.add("resultFlash");
+
+    // base por marca
     let base = 140;
     if(brand === "iPhone") base = 150;
     if(brand === "Samsung") base = 145;
@@ -569,103 +777,384 @@
     if(brand === "Motorola") base = 142;
     if(brand === "Realme") base = 147;
 
-    // FPS
+    // FPS tweak (mais FPS = passos menores, um pouco mais controle)
     if(fps === 90) base -= 2;
     if(fps === 120) base -= 4;
 
-    // Style
+    // estilo de jogo
     if(style === "rush") base += 6;
     if(style === "mid") base += 1;
     if(style === "long") base -= 6;
 
-    // Preset
+    // perfil
     if(preset === "rush") base += 6;
     if(preset === "precise") base -= 6;
     if(preset === "low") base -= 12;
 
-    // Control slider: -18..+18
+    // controle do usuário: -18..+18
     base += (userControl - 55) * (18/45);
 
     let geral = clamp(round(base), 0, 200);
-
     let redDot = clamp(round(geral + 8), 0, 200);
     let s2 = clamp(round(geral - 10), 0, 200);
     let s4 = clamp(round(geral - 18), 0, 200);
     let awm = clamp(round(geral - 28), 0, 200);
     let free = clamp(round(geral + 12), 0, 200);
 
-    // Ensure order
+    // ordem
     redDot = Math.max(redDot, geral);
     s2 = Math.min(s2, geral);
     s4 = Math.min(s4, s2);
     awm = Math.min(awm, s4);
 
-    // Micro tweak for iOS (scopes slightly more controlled)
+    // iOS micro controle de scope
     if(os === "ios" || brand === "iPhone"){
       s2 = clamp(s2 - 2, 0, 200);
       s4 = clamp(s4 - 2, 0, 200);
       awm = clamp(awm - 2, 0, 200);
     }
 
-    const tag = `${os==="ios"?"iOS":"Android"} • ${brand}${model?(" • "+model):""} • ${fps}fps • ${style}`;
+    // Tag
+    const tag = `${os==="ios"?"iOS":"Android"} • ${brand}${model?(" • "+model):""} • ${fps}fps • ${style} • ${preset}`;
 
-    showResult({os, tag, geral, redDot, s2, s4, awm, free});
-  }
-
-  function showResult(r){
+    // Render sensi
     $("result").style.display = "block";
-    $("badge").textContent = r.tag;
+    $("badge").innerHTML = `<b>${tag}</b>`;
 
-    $("vG").textContent = r.geral;
-    $("vR").textContent = r.redDot;
-    $("v2").textContent = r.s2;
-    $("v4").textContent = r.s4;
-    $("vA").textContent = r.awm;
-    $("vF").textContent = r.free;
+    $("vG").textContent = geral;
+    $("vR").textContent = redDot;
+    $("v2").textContent = s2;
+    $("v4").textContent = s4;
+    $("vA").textContent = awm;
+    $("vF").textContent = free;
 
-    // Build OS lists
-    const osTitle = $("osTitle");
+    // Build configs
     const osList = $("osList");
     const advList = $("advList");
     const optList = $("optList");
-    const optTitle = $("optTitle");
-
+    const tipsList = $("tipsList");
     osList.innerHTML = "";
     advList.innerHTML = "";
     optList.innerHTML = "";
+    tipsList.innerHTML = "";
+// helpers pra adicionar itens bonitinhos
+const add = (ul, label, value, info="")=>{
+  const li = document.createElement("li");
+  li.innerHTML = `<span>${label}</span><b>${value}</b>` + (info ? ` <span class="i" title="${info}">i</span>` : "");
+  ul.appendChild(li);
+};
 
-    const data = (r.os === "ios") ? buildIosLists() : buildAndroidLists();
+// ===== CONFIGS POR SISTEMA =====
+if(os === "ios" || brand === "iPhone"){
+  add(osList, "iOS", "Config recomendada", "Essas configs não mudam sua sensi do jogo, mas mudam a sensação do toque/controle.");
+  
+  add(advList, "Toque Tátil", "Rápido", "Ajustes > Acessibilidade > Toque > Toque Tátil");
+  add(advList, "AssistiveTouch", "DESLIGADO", "Se estiver ligado pode atrapalhar/roubar gesto.");
+  add(advList, "Cursor Móvel", "DESLIGADO", "Acessibilidade > Controle Assistivo (ou Cursor Móvel).");
+  
+  add(optList, "Acelerar animações", "OFF", "Reduz movimento ajuda na sensação de rapidez.");
+  add(optList, "Reduzir transparência", "ON", "Pode deixar mais leve/estável.");
 
-    osTitle.textContent = (r.os === "ios") ? "Config do iPhone (iOS)" : "Config do Android";
-    optTitle.textContent = (r.os === "ios") ? "Otimização (iOS)" : "Otimização (Android)";
+  add(tipsList, "Dica", "FPS estável > sensi consistente", "Travar FPS ajuda sua memória muscular.");
+}
 
-    data.main.forEach(x => osList.appendChild(itemRow(x)));
-    data.advanced.forEach(x => advList.appendChild(itemRow(x)));
-    data.opt.forEach(x => optList.appendChild(itemRow(x)));
+if(os === "android" && brand !== "iPhone"){
+  add(osList, "Android", "Config recomendada", "Aqui sim tem coisas que mudam MUITO a sensação: velocidade do toque e DPI (quando disponível).");
 
-    // Copy buttons
-    const summary =
-`FF Treinador PRO
-${r.tag}
-Geral: ${r.geral}
-Red Dot: ${r.redDot}
-2x: ${r.s2}
-4x: ${r.s4}
-AWM: ${r.awm}
-Olhadinha: ${r.free}`;
+  add(advList, "Velocidade do toque", "Alta", "Config varia por marca. Procure: 'Velocidade do ponteiro/toque'.");
+  add(advList, "DPI (Interface)", "Médio/Pequena", "Sem precisar do modo desenvolvedor: use 'Tamanho da exibição' / 'Menor largura' se existir no sistema.");
+  
+  add(optList, "Taxa de atualização", "Máxima", "Ative 90/120Hz se o celular tiver.");
+  add(optList, "Economia de bateria", "OFF", "Pode limitar desempenho.");
+  
+  add(tipsList, "Dica", "Não inventa demais", "Muda 1 coisa por vez e testa 2–3 partidas.");
+}
+    // vibe 0..1 (mais alto = mais rápido)
+    const vibe = clamp((userControl/100), 0, 1);
 
-    const full =
-`${summary}
+    if(os === "ios"){
+      $("osTitle").textContent = "Config do iPhone (iOS)";
+      $("optTitle").textContent = "Otimização (iOS)";
+
+      // Valores variáveis (mudam junto do perfil/controle/fps)
+      const tracking = clamp(78 + vibe*14 + (preset==="rush"?6:0) - (preset==="precise"?6:0) - (fps>=90?2:0), 70, 95);
+      const tolerance = clamp(80 + vibe*18 + (preset==="precise"?4:0), 75, 100);
+      const cursor = clamp(28 + vibe*7 + (preset==="rush"?1:0) - (preset==="precise"?1:0), 28, 35);
+      const cycles = clamp(3 + (preset==="precise"?2:0) + (style==="rush"?0:1), 3, 6);
+
+      const main = [
+        {
+          name:"Toque Tátil",
+          rec:"Recomendado: Rápido",
+          tip:"Deixa a resposta do sistema mais imediata. Não muda a sensi do FF direto, mas melhora sensação de resposta."
+        },
+        {
+          name:"AssistiveTouch — Sensibilidade do rastreamento",
+          rec:`Recomendado: ${pct(tracking)}`,
+          tip:"Se você usa cursor/AssistiveTouch, isso muda MUITO a sensação de mira (velocidade/controle)."
+        },
+        {
+          name:"AssistiveTouch — Tolerância de movimento",
+          rec:`Recomendado: ${pct(tolerance)}`,
+          tip:"Alta tende a deixar mais estável (menos tremido) quando usando ponteiro. Ajuste fino se estiver ‘escorregando’."
+        },
+        {
+          name:"Cursor móvel (se usar)",
+          rec:`Recomendado: ${round(cursor)} (faixa 28–35)`,
+          tip:"Velocidade do cursor/ponteiro. Mais alto = mais rápido. Mais baixo = mais firme."
+        }
+      ];
+
+      const advanced = [
+        {
+          name:"Controle Assistivo — Ciclos",
+          rec:`Avançado: ${round(cycles)} (faixa 3–6)`,
+          tip:"Só faz sentido se você joga com Controle Assistivo ligado. Pode alterar sensação de atraso/estabilidade."
+        },
+        {
+          name:"Controle Assistivo — Pausa no primeiro item",
+          rec:"Avançado: Desligado",
+          tip:"Pausa adiciona atraso na varredura (se estiver usando Controle Assistivo)."
+        }
+      ];
+
+      const opt = [
+        {
+          name:"Modo Pouca Energia",
+          rec:"Desligado ao jogar",
+          tip:"Economia pode reduzir desempenho e aumentar stutter/atraso."
+        },
+        {
+          name:"Atualização em 2º plano",
+          rec:"Desativar apps que não precisa",
+          tip:"Menos coisas rodando = mais estabilidade e menos aquecimento."
+        },
+        {
+          name:"Brilho",
+          rec:"70% a 90%",
+          tip:"Melhora visibilidade e consistência. Muito baixo pode dar sensação de mira ‘imprecisa’."
+        },
+        {
+          name:"Foco (Não perturbe)",
+          rec:"Ativar ao jogar",
+          tip:"Evita travadas por notificação e chamadas."
+        }
+      ];
+
+      const tips = buildTips({os, geral, redDot, s4, awm, style, preset});
+
+      main.forEach(x => osList.appendChild(itemRow(x)));
+      advanced.forEach(x => advList.appendChild(itemRow(x)));
+      opt.forEach(x => optList.appendChild(itemRow(x)));
+      tips.forEach(x => tipsList.appendChild(itemRow(x)));
+
+    } else {
+      $("osTitle").textContent = "Config do Android";
+      $("optTitle").textContent = "Otimização (Android)";
+
+      const range = safeDpiRange(brand);
+      // vibe para DPI: mais rápido = DPI um pouco maior (mais “compacto”), mas sem exagerar
+      const dpi = pickDpi(range, vibe + (preset==="rush"?0.12:0) - (preset==="precise"?0.10:0));
+      const animScale = (preset==="rush" || vibe>0.55) ? "0.5x" : "1.0x";
+
+      const main = [
+        {
+          name:"DPI (Menor largura)",
+          rec:`Recomendado: ${dpi} (faixa PRO ${range.recMin}–${range.recMax})`,
+          tip:"DPI mexe no tamanho da interface/HUD. O ZYRON limita em faixa segura pra não quebrar o sistema."
+        },
+        {
+          name:"Taxa de atualização (Hz)",
+          rec:"Alta / Máxima",
+          tip:"60/90/120Hz melhora fluidez e controle de mira (se o aparelho suportar)."
+        },
+        {
+          name:"Modo Game / Game Booster",
+          rec:"Ativado (se existir)",
+          tip:"Prioriza desempenho e reduz interrupções. Ajuda estabilidade."
+        },
+        {
+          name:"Sensibilidade de toque (se existir)",
+          rec:"Médio/Alto",
+          tip:"Alguns Android têm opção de toque. Ajuda especialmente com película/dedo seco."
+        }
+      ];
+
+      const advanced = [
+        {
+          name:"Escala de animação (Dev Options)",
+          rec:`Avançado: ${animScale} (ou 0.5x)`,
+          tip:"Não muda a sensi do FF, mas deixa o sistema mais rápido e ‘limpo’."
+        },
+        {
+          name:"Forçar 4x MSAA (Dev Options)",
+          rec:"Avançado: Geralmente NÃO",
+          tip:"Pode piorar desempenho em muitos aparelhos. Pra FF, geralmente não compensa."
+        }
+      ];
+
+      const opt = [
+        {
+          name:"Economia de bateria",
+          rec:"Desligada ao jogar",
+          tip:"Economia limita CPU/GPU e aumenta delay."
+        },
+        {
+          name:"Apps em segundo plano",
+          rec:"Fechar os pesados",
+          tip:"Fecha redes sociais/gravadores pesados. Menos RAM/CPU ocupada = menos travas."
+        },
+        {
+          name:"Aquecimento",
+          rec:"Evitar jogar carregando",
+          tip:"Aquecimento derruba desempenho (thermal throttling). Cooler ajuda muito."
+        },
+        {
+          name:"Espaço livre",
+          rec:"Manter armazenamento livre",
+          tip:"Armazenamento cheio pode piorar desempenho geral."
+        }
+      ];
+
+      const tips = buildTips({os, geral, redDot, s4, awm, style, preset});
+
+      main.forEach(x => osList.appendChild(itemRow(x)));
+      advanced.forEach(x => advList.appendChild(itemRow(x)));
+      opt.forEach(x => optList.appendChild(itemRow(x)));
+      tips.forEach(x => tipsList.appendChild(itemRow(x)));
+    }
+
+    // Copy
+    $("copyOne").onclick = ()=> copyText(withWatermark(makeSummary({tag, geral, redDot, s2, s4, awm, free})));
+    $("copyAll").onclick = ()=> copyText(withWatermark(makeFull({tag, geral, redDot, s2, s4, awm, free, osList, advList, optList})));
+  }
+
+  function buildTips(ctx){
+    const tips = [];
+
+    tips.push({
+      name:"Ajuste fino (3 partidas)",
+      rec:"3 perto + 3 médio",
+      tip:"Faça 3 partidas só red dot (capa curto) e 3 partidas só 2x/4x. Ajuste em passos pequenos."
+    });
+
+    // regras base
+    tips.push({
+      name:"Se passa do alvo",
+      rec:"Geral -4",
+      tip:"Se a mira ‘passa’ e volta, diminua o Geral em 3–5. Não mexa em tudo de uma vez."
+    });
+    tips.push({
+      name:"Se não puxa capa",
+      rec:"Geral +4 ou Red Dot +6",
+      tip:"Se falta puxada, suba Geral em +3/+5. Se for só no perto, suba Red Dot +4/+6."
+    });
+
+    // tremedeira
+    if(ctx.s4 >= 120){
+      tips.push({
+        name:"Tremedeira no 4x",
+        rec:"4x -6",
+        tip:"Se o 4x treme, desce o 4x em -6 e testa 2 partidas."
+      });
+    } else {
+      tips.push({
+        name:"Controle no 4x",
+        rec:"Mantém baixo",
+        tip:"4x mais baixo ajuda muito em médio/longa. Ajuste devagar."
+      });
+    }
+
+    // sniper
+    tips.push({
+      name:"Sniper (AWM)",
+      rec:"AWM mais baixo",
+      tip:"Sniper geralmente precisa mais controle. Se errar fino, baixe AWM -6."
+    });
+
+    // estilo/perfil
+    if(ctx.style==="rush" || ctx.preset==="rush"){
+      tips.push({
+        name:"Rush",
+        rec:"Red Dot alto",
+        tip:"Rush pede Red Dot alto e 2x/4x mais controlado pra não ‘passar’."
+      });
+    }
+    if(ctx.style==="long" || ctx.preset==="precise"){
+      tips.push({
+        name:"Longo/Precisão",
+        rec:"Passos menores",
+        tip:"Use ajustes pequenos (+/-2 ou +/-3) e priorize estabilidade no 2x/4x."
+      });
+    }
+
+    // OS
+    if(ctx.os==="ios"){
+      tips.push({
+        name:"iPhone",
+        rec:"Evite economia",
+        tip:"Jogar com Pouca Energia desligado e Foco ligado costuma dar mais consistência."
+      });
+    } else {
+      tips.push({
+        name:"Android",
+        rec:"DPI sem exagero",
+        tip:"DPI extremo pode bugar o sistema. Use a faixa PRO recomendada e faça teste rápido."
+      });
+    }
+
+    return tips;
+  }
+
+  // ===== 9) Marca d'água no copiar =====
+  function withWatermark(text){
+    const mark = `\n\n— ZYRON • Control Engine`;
+    return (text || "").trim() + mark;
+  }
+
+  function makeSummary({tag, geral, redDot, s2, s4, awm, free}){
+    return `ZYRON • Pacote PRO\n${tag}\n\nSENSI (0–200)\nGeral: ${geral}\nRed Dot: ${redDot}\n2x: ${s2}\n4x: ${s4}\nAWM: ${awm}\nOlhadinha: ${free}`;
+  }
+
+  function listToText(containerEl){
+    // pega somente name+rec (sem tooltip)
+    const rows = containerEl.querySelectorAll(".item .left");
+    const out = [];
+    rows.forEach(r=>{
+      const name = r.querySelector(".name")?.textContent?.trim() || "";
+      const rec  = r.querySelector(".rec")?.textContent?.trim() || "";
+      if(name && rec) out.push(`- ${name}: ${rec}`);
+    });
+    return out.join("\n");
+  }
+
+  function makeFull({tag, geral, redDot, s2, s4, awm, free, osList, advList, optList}){
+    const conf = listToText(osList);
+    const adv = listToText(advList);
+    const opt = listToText(optList);
+
+    return `ZYRON • Pacote PRO\n${tag}\n
+SENSI (0–200)
+Geral: ${geral}
+Red Dot: ${redDot}
+2x: ${s2}
+4x: ${s4}
+AWM: ${awm}
+Olhadinha: ${free}
+
+CONFIG (principal)
+${conf || "- (vazio)"}
+
+CONFIG (avançado)
+${adv || "- (vazio)"}
+
+OTIMIZAÇÃO
+${opt || "- (vazio)"}
 
 Ajuste fino:
 - Se passa do alvo: Geral -4
-- Se não puxa: Geral +4
-- Tremedeira no 4x: 4x -6
-
-Config do celular e Otimização: veja no site (itens com ⓘ).`;
-
-    $("copyOne").onclick = ()=>copyText(summary);
-    $("copyAll").onclick = ()=>copyText(full);
+- Se não puxa capa: Geral +4
+- Tremedeira no 4x: 4x -6`;
   }
 
   async function copyText(text){
@@ -683,7 +1172,7 @@ Config do celular e Otimização: veja no site (itens com ⓘ).`;
     }
   }
 
-  // Advanced toggle
+  // ===== Avançado toggle =====
   let advOpen = false;
   $("advBtn").addEventListener("click", ()=>{
     advOpen = !advOpen;
@@ -691,8 +1180,9 @@ Config do celular e Otimização: veja no site (itens com ⓘ).`;
     $("advBtn").textContent = advOpen ? "Ocultar avançado" : "Mostrar avançado";
   });
 
-  // Buttons
-  $("gen").addEventListener("click", generateSensi);
+  // ===== Buttons =====
+  $("gen").addEventListener("click", generatePack);
+
   $("reset").addEventListener("click", ()=>{
     $("os").value="ios";
     $("brand").value="iPhone";
