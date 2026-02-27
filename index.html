@@ -1,72 +1,45 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0b" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#0b0b0b"/>
   <title>FF Treinador PRO</title>
   <style>
     :root{
-      --bg:#0b0b0b;
-      --panel:#121212;
-      --panel2:#161616;
-      --text:#f2f2f2;
-      --muted:#b9b9b9;
-      --stroke:#242424;
-      --ok:#25d366;
-      --warn:#ffcc00;
-      --bad:#ff4d4d;
-      --accent:#00ff88;
-      --accent2:#00c7ff;
+      --bg:#0b0b0b; --panel:#121212; --panel2:#161616;
+      --text:#f2f2f2; --muted:#b9b9b9; --stroke:#242424;
+      --accent:#00ff88; --accent2:#00c7ff;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 18px;
+      --r:18px;
     }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
-      margin:0;
+      margin:0; color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       background:
         radial-gradient(900px 700px at 15% 10%, rgba(0,255,136,.12), transparent 55%),
         radial-gradient(900px 700px at 85% 25%, rgba(0,199,255,.10), transparent 60%),
         radial-gradient(1200px 900px at 50% 110%, rgba(0,255,136,.08), transparent 60%),
         var(--bg);
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      line-height:1.35;
     }
-
-    a{color:inherit}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 56px}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 56px}
     .top{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      margin-bottom:18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      margin-bottom:14px;
     }
-    .brand{
-      display:flex;align-items:center;gap:12px;
-    }
+    .brand{display:flex;align-items:center;gap:12px}
     .logo{
       width:44px;height:44px;border-radius:14px;
-      background: linear-gradient(135deg, rgba(0,255,136,.20), rgba(0,199,255,.18));
+      background: linear-gradient(135deg, rgba(0,255,136,.22), rgba(0,199,255,.18));
       border:1px solid rgba(255,255,255,.10);
       box-shadow: var(--shadow);
       display:grid;place-items:center;
-      position:relative;
-      overflow:hidden;
+      font-weight:900; letter-spacing:.6px;
     }
-    .logo:before{
-      content:"";
-      position:absolute;inset:-40%;
-      background: radial-gradient(circle, rgba(0,255,136,.25), transparent 60%);
-      transform: rotate(25deg);
-    }
-    .logo span{position:relative;font-weight:900;letter-spacing:.5px}
     .title h1{margin:0;font-size:18px;letter-spacing:.6px}
     .title p{margin:2px 0 0;color:var(--muted);font-size:12px}
-
-    .pillbar{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
-    }
+    .pillbar{display:flex;gap:10px;flex-wrap:wrap}
     .pill{
       border:1px solid rgba(255,255,255,.10);
       background: rgba(18,18,18,.65);
@@ -76,41 +49,19 @@
       box-shadow: 0 10px 40px rgba(0,0,0,.35);
     }
     .pill label{font-size:12px;color:var(--muted)}
-    .pill input[type="color"]{
-      width:26px;height:26px;border:none;background:transparent;padding:0;cursor:pointer;
-    }
-    .pill select{
-      background:transparent;color:var(--text);
-      border:none;outline:none;font-weight:700;font-size:12px;cursor:pointer;
-    }
+    .pill input[type="color"]{width:26px;height:26px;border:none;background:transparent;padding:0}
+    .pill select{background:transparent;color:var(--text);border:none;outline:none;font-weight:800;font-size:12px}
     .pill option{background:#101010}
 
     .hero{
       border:1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(18,18,18,.82), rgba(12,12,12,.72));
-      border-radius: var(--radius);
-      padding:18px;
+      border-radius: var(--r);
+      padding:16px;
       box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
     }
-    .hero:after{
-      content:"";
-      position:absolute;inset:-2px;
-      background: radial-gradient(700px 350px at 0% 0%, rgba(0,255,136,.18), transparent 60%),
-                  radial-gradient(700px 350px at 100% 0%, rgba(0,199,255,.14), transparent 60%);
-      pointer-events:none;
-    }
-    .hero .row{
-      position:relative;
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:14px;
-    }
-    @media (max-width:900px){
-      .hero .row{grid-template-columns:1fr}
-      .pillbar{justify-content:flex-start}
-    }
+    .row{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+    @media (max-width:900px){.row{grid-template-columns:1fr}}
 
     .card{
       border:1px solid rgba(255,255,255,.10);
@@ -121,19 +72,11 @@
     .card h2{margin:0 0 8px;font-size:14px;letter-spacing:.4px}
     .sub{color:var(--muted);font-size:12px;margin:0 0 14px}
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width:520px){
-      .grid{grid-template-columns:1fr}
-    }
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:520px){.grid{grid-template-columns:1fr}}
 
-    .field label{
-      display:block;font-size:12px;color:var(--muted);margin-bottom:6px;
-    }
-    .field select, .field input[type="text"], .field input[type="range"]{
+    .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    .field select,.field input[type="text"],.field input[type="range"]{
       width:100%;
       background: rgba(10,10,10,.6);
       color: var(--text);
@@ -145,20 +88,17 @@
     .field input[type="range"]{padding:10px 12px}
     .field small{display:block;margin-top:6px;color:var(--muted);font-size:11px}
 
-    .actions{
-      display:flex;gap:10px;flex-wrap:wrap;margin-top:12px
-    }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .btn{
       border:none;cursor:pointer;
       border-radius: 14px;
       padding:12px 14px;
-      font-weight:900;
+      font-weight:1000;
       letter-spacing:.6px;
       color:#08110c;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 16px 40px rgba(0,255,136,.12);
-      flex:1;
-      min-width:180px;
+      flex:1; min-width:180px;
     }
     .btn.secondary{
       background: rgba(255,255,255,.06);
@@ -168,29 +108,22 @@
     }
 
     .result{
-      margin-top:14px;
+      display:none;
+      margin-top:12px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(10,10,10,.55);
       border-radius: 16px;
       padding:14px;
-    }
-    .result .head{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
     }
     .badge{
       font-size:12px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       padding:8px 10px;border-radius:999px;color:var(--muted);
+      display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;
     }
-    .vals{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top:12px;
-    }
+    .vals{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
     @media (max-width:700px){ .vals{grid-template-columns:1fr} }
-
     .kv{
       border:1px solid rgba(255,255,255,.10);
       background: rgba(18,18,18,.55);
@@ -199,38 +132,72 @@
       display:flex;align-items:center;justify-content:space-between;gap:10px;
     }
     .kv b{font-size:12px;color:var(--muted)}
-    .kv span{
-      font-size:18px;font-weight:1000;
-      letter-spacing:.6px;
-    }
-    .kv .max{font-size:12px;color:var(--muted);font-weight:700}
+    .kv span{font-size:18px;font-weight:1000;letter-spacing:.6px}
 
-    .copyRow{
-      display:flex;gap:10px;flex-wrap:wrap;margin-top:12px
-    }
+    .copyRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .copy{
       flex:1;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.06);
       color: var(--text);
       padding:11px 12px;border-radius: 14px;
-      cursor:pointer;font-weight:900;
+      cursor:pointer;font-weight:1000;
     }
 
-    .tips{
-      margin-top:12px;
+    .section{
+      margin-top:14px;
       border-top:1px dashed rgba(255,255,255,.12);
-      padding-top:12px;
-      color:var(--muted);
-      font-size:12px;
+      padding-top:14px;
     }
-    .tips ul{margin:8px 0 0;padding-left:18px}
-    .tips li{margin:6px 0}
+    .section h3{
+      margin:0 0 8px;font-size:13px;color:#eaeaea;letter-spacing:.35px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    }
+    .list{
+      display:grid;gap:10px;
+    }
+    .item{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(18,18,18,.45);
+      border-radius: 14px;
+      padding:12px;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    }
+    .item .left{min-width:0}
+    .item .name{font-weight:900;font-size:13px}
+    .item .rec{color:var(--muted);font-size:12px;margin-top:3px}
+    .iBtn{
+      flex:0 0 auto;
+      width:28px;height:28px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:1000;
+      display:grid;place-items:center;
+      cursor:pointer;
+    }
+    .advToggle{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding:9px 10px;border-radius:999px;
+      cursor:pointer;font-weight:900;font-size:12px;
+    }
 
-    .footer{
-      margin-top:18px;color:var(--muted);font-size:11px;
-      opacity:.9
+    /* Tooltip */
+    .tip{
+      display:none;
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(10,10,10,.65);
+      border-radius: 12px;
+      padding:10px 10px;
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.35;
     }
+    .tip strong{color:#eaeaea}
+
     .note{
       margin-top:12px;
       font-size:11px;color:var(--muted);
@@ -238,16 +205,6 @@
       background: rgba(255,255,255,.04);
       padding:10px 12px;border-radius: 14px;
     }
-
-    .videoBox{
-      margin-top:10px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(18,18,18,.45);
-      border-radius: 16px;
-      padding:12px;
-    }
-    .videoBox p{margin:6px 0;color:var(--muted);font-size:12px}
-    .videoBox input{width:100%}
   </style>
 </head>
 
@@ -255,24 +212,24 @@
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <div class="logo"><span>FF</span></div>
+        <div class="logo">FF</div>
         <div class="title">
           <h1>FF TREINADOR PRO</h1>
-          <p>Gerador PRO de sensi (0–200) + dicas por estilo de jogo</p>
+          <p>Sensi (0–200) + Config do celular + Otimização (com ⓘ e Avançado)</p>
         </div>
       </div>
 
       <div class="pillbar">
         <div class="pill">
           <label>Cor do tema</label>
-          <input id="accent" type="color" value="#00ff88" />
+          <input id="accent" type="color" value="#00ff88"/>
         </div>
         <div class="pill">
           <label>Perfil</label>
           <select id="preset">
             <option value="balanced">Equilibrado (recomendado)</option>
             <option value="rush">Rush / agressivo</option>
-            <option value="precise">Precisão / capa</option>
+            <option value="precise">Precisão / controle</option>
             <option value="low">Controle (mais baixo)</option>
           </select>
         </div>
@@ -281,11 +238,21 @@
 
     <section class="hero">
       <div class="row">
+        <!-- FORM -->
         <div class="card">
-          <h2>1) Seu celular e sua pegada</h2>
-          <p class="sub">Preencha pra gerar a sensi “base” e já sair melhor do que tava.</p>
+          <h2>1) Gerar</h2>
+          <p class="sub">Escolha iOS/Android. Ao gerar, vai aparecer também a config do sistema + otimização.</p>
 
           <div class="grid">
+            <div class="field">
+              <label>Sistema</label>
+              <select id="os">
+                <option value="ios">iOS (iPhone)</option>
+                <option value="android">Android</option>
+              </select>
+              <small>Isso decide qual “Config do Celular” vai aparecer no resultado.</small>
+            </div>
+
             <div class="field">
               <label>Marca</label>
               <select id="brand">
@@ -297,13 +264,13 @@
                 <option>POCO</option>
                 <option>Outro Android</option>
               </select>
-              <small>Dica: iPhone tende a pedir sensi um pouco diferente no geral.</small>
+              <small>Dica: selecione de acordo com seu aparelho.</small>
             </div>
 
             <div class="field">
               <label>Modelo (opcional)</label>
-              <input id="model" type="text" placeholder="Ex: iPhone 13 / S23 / G54..." />
-              <small>Isso não trava nada. Serve só pra você salvar no “copiar”.</small>
+              <input id="model" type="text" placeholder="Ex: iPhone 13 / G54 / Poco X6..."/>
+              <small>Vai aparecer no “copiar completo”.</small>
             </div>
 
             <div class="field">
@@ -313,65 +280,52 @@
                 <option value="90">90 FPS</option>
                 <option value="120">120 FPS</option>
               </select>
-              <small>FPS maior = pode usar um pouco mais de controle.</small>
+              <small>FPS maior costuma pedir um pouco mais de controle.</small>
             </div>
 
             <div class="field">
-              <label>Seu estilo</label>
+              <label>Seu estilo no FF</label>
               <select id="style">
                 <option value="balanced">Equilibrado</option>
-                <option value="rush">Rush / puxar capa perto</option>
-                <option value="mid">Médio alcance (trocação segura)</option>
-                <option value="long">Longo alcance (calma)</option>
+                <option value="rush">Rush (perto)</option>
+                <option value="mid">Médio alcance</option>
+                <option value="long">Longo alcance</option>
               </select>
-              <small>Isso muda foco entre velocidade x estabilidade.</small>
+              <small>Isso ajusta velocidade x estabilidade.</small>
             </div>
 
             <div class="field">
-              <label>Tamanho da tela (aprox.)</label>
-              <select id="screen">
-                <option value="small">Pequena (≤ 6.1")</option>
-                <option value="mid">Média (6.2"–6.6")</option>
-                <option value="big">Grande (≥ 6.7")</option>
-              </select>
-              <small>Tela grande geralmente pede leve redução no “Geral”.</small>
-            </div>
-
-            <div class="field">
-              <label>Controle de mira (0 = lento / 100 = muito rápido)</label>
-              <input id="control" type="range" min="0" max="100" value="55" />
+              <label>Controle de mira (0 lento / 100 rápido)</label>
+              <input id="control" type="range" min="0" max="100" value="55"/>
               <small id="controlTxt">55/100</small>
             </div>
           </div>
 
           <div class="actions">
-            <button class="btn" id="gen">GERAR MELHOR SENSI</button>
+            <button class="btn" id="gen">GERAR</button>
             <button class="btn secondary" id="reset">RESET</button>
           </div>
 
           <div class="note">
-            ⚠️ **Sobre “analisar vídeo” grátis:** dá pra fazer no site um upload e pegar **dicas gerais** (sem IA real).  
-            IA de verdade pra ler gameplay normalmente precisa de servidor/API (aí vira pago).
+            ⚠️ O site não altera o sistema sozinho. Ele te mostra o que ajustar e por quê.
           </div>
         </div>
 
+        <!-- RESULT -->
         <div class="card">
-          <h2>2) Resultado (0–200) + Copiar</h2>
-          <p class="sub">Você gera, copia e aplica no Free Fire.</p>
+          <h2>2) Resultado</h2>
+          <p class="sub">Sensi + Config do celular + Otimização (com ⓘ e “Avançado”).</p>
 
-          <div class="result" id="result" style="display:none;">
-            <div class="head">
-              <div class="badge" id="badge"></div>
-              <div class="badge">Faixa: <b>0–200</b></div>
-            </div>
+          <div class="result" id="result">
+            <div class="badge" id="badge"></div>
 
             <div class="vals">
-              <div class="kv"><div><b>Geral</b><div class="max">Base do seu estilo</div></div><span id="vG">0</span></div>
-              <div class="kv"><div><b>Red Dot</b><div class="max">Puxar capa perto</div></div><span id="vR">0</span></div>
-              <div class="kv"><div><b>2x</b><div class="max">Médio</div></div><span id="v2">0</span></div>
-              <div class="kv"><div><b>4x</b><div class="max">Médio/Longo</div></div><span id="v4">0</span></div>
-              <div class="kv"><div><b>AWM / Sniper</b><div class="max">Fino</div></div><span id="vA">0</span></div>
-              <div class="kv"><div><b>Olhadinha (free look)</b><div class="max">Movimento</div></div><span id="vF">0</span></div>
+              <div class="kv"><div><b>Geral</b></div><span id="vG">0</span></div>
+              <div class="kv"><div><b>Red Dot</b></div><span id="vR">0</span></div>
+              <div class="kv"><div><b>2x</b></div><span id="v2">0</span></div>
+              <div class="kv"><div><b>4x</b></div><span id="v4">0</span></div>
+              <div class="kv"><div><b>AWM/Sniper</b></div><span id="vA">0</span></div>
+              <div class="kv"><div><b>Olhadinha</b></div><span id="vF">0</span></div>
             </div>
 
             <div class="copyRow">
@@ -379,18 +333,27 @@
               <button class="copy" id="copyAll">COPIAR (COMPLETO)</button>
             </div>
 
-            <div class="tips" id="tips"></div>
-          </div>
+            <div class="section">
+              <h3>
+                <span id="osTitle">Config do Celular</span>
+                <button class="advToggle" id="advBtn" type="button">Mostrar avançado</button>
+              </h3>
 
-          <div class="videoBox">
-            <h2 style="margin:0 0 6px;font-size:14px">3) Vídeo (opcional)</h2>
-            <p>Se quiser, mande um vídeo aqui só pra você guardar junto e eu te dar um checklist de melhoria (sem IA real).</p>
-            <input id="video" type="file" accept="video/*" />
-            <p id="videoInfo"></p>
-          </div>
+              <div class="list" id="osList"></div>
 
-          <div class="footer">
-            Dica PRO: ajuste fino = 3 partidas só “capas curtas” + 3 partidas “médio alcance”.
+              <div id="advancedWrap" style="display:none;margin-top:10px">
+                <div class="list" id="advList"></div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h3><span id="optTitle">Otimização</span></h3>
+              <div class="list" id="optList"></div>
+            </div>
+
+            <div class="note">
+              Ajuste fino rápido: se <b>passa do alvo</b> → Geral -4. Se <b>não puxa</b> → Geral +4. Tremedeira no 4x → 4x -6.
+            </div>
           </div>
         </div>
       </div>
@@ -399,122 +362,254 @@
 
 <script>
   const $ = (id)=>document.getElementById(id);
+  const clamp = (n,min,max)=>Math.max(min, Math.min(max,n));
+  const round = (n)=>Math.round(n);
 
   // Theme
-  const accent = $("accent");
-  const preset = $("preset");
   function setAccent(hex){
     document.documentElement.style.setProperty("--accent", hex);
-    // cria um 2º tom automaticamente (um pouco mais azulado)
     document.documentElement.style.setProperty("--accent2", "#00c7ff");
     localStorage.setItem("ff_accent", hex);
   }
+  const accent = $("accent");
   const savedAccent = localStorage.getItem("ff_accent");
   if(savedAccent){ accent.value = savedAccent; setAccent(savedAccent); }
   accent.addEventListener("input", e=>setAccent(e.target.value));
 
-  // Control slider text
+  // Slider text
   const control = $("control");
   const controlTxt = $("controlTxt");
   function updateControlTxt(){ controlTxt.textContent = `${control.value}/100`; }
   control.addEventListener("input", updateControlTxt);
   updateControlTxt();
 
-  function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); }
-  function round(n){ return Math.round(n); }
+  // Info row builder (with ⓘ)
+  function itemRow({name, rec, tip}){
+    const wrap = document.createElement("div");
+    wrap.className = "item";
 
-  // Core generator (0..200)
-  function generate(){
+    const left = document.createElement("div");
+    left.className = "left";
+    left.innerHTML = `<div class="name">${name}</div><div class="rec">${rec}</div>`;
+
+    const right = document.createElement("div");
+    const btn = document.createElement("button");
+    btn.className = "iBtn";
+    btn.type = "button";
+    btn.textContent = "i";
+
+    const tipBox = document.createElement("div");
+    tipBox.className = "tip";
+    tipBox.innerHTML = `<strong>O que faz:</strong> ${tip}`;
+
+    btn.addEventListener("click", ()=>{
+      tipBox.style.display = (tipBox.style.display === "block") ? "none" : "block";
+    });
+
+    right.appendChild(btn);
+    wrap.appendChild(left);
+    wrap.appendChild(right);
+
+    // tip abaixo
+    const outer = document.createElement("div");
+    outer.appendChild(wrap);
+    outer.appendChild(tipBox);
+    return outer;
+  }
+
+  function buildIosLists(){
+    const main = [
+      {
+        name:"Toque Tátil (Haptic Touch)",
+        rec:"Recomendado: Rápido",
+        tip:"Deixa algumas ações do sistema mais imediatas. Pode melhorar sensação de resposta. Não altera a sensi do FF diretamente, mas pode reduzir sensação de atraso."
+      },
+      {
+        name:"AssistiveTouch — Sensibilidade do rastreamento",
+        rec:"Recomendado: 80% a 90%",
+        tip:"Controla a resposta do ponteiro do AssistiveTouch. Só influencia se você usa AssistiveTouch/ponteiro para jogar. Se usa, isso muda MUITO a sensação de mira."
+      },
+      {
+        name:"AssistiveTouch — Tolerância de movimento",
+        rec:"Recomendado: Alta (80%+)",
+        tip:"Define quanto você pode mover sem “quebrar” o gesto. Alta tende a deixar a mira mais estável (menos tremida) quando usando AssistiveTouch."
+      },
+      {
+        name:"Cursor móvel (se estiver usando)",
+        rec:"Recomendado: 28 a 35 (ex.: 31)",
+        tip:"Velocidade do cursor/ponteiro (acessibilidade). Só impacta se você usa cursor/ponteiro. Ajusta estabilidade x velocidade."
+      }
+    ];
+
+    const advanced = [
+      {
+        name:"Controle Assistivo — Ciclos",
+        rec:"Avançado: 3 a 5",
+        tip:"Quantas vezes o sistema repete a varredura. Só faz sentido se você joga com Controle Assistivo ligado (o que não é comum). Pode mudar sensação de atraso/estabilidade do input."
+      },
+      {
+        name:"Controle Assistivo — Tempo de escaneamento",
+        rec:"Avançado: médio",
+        tip:"Velocidade da varredura do Controle Assistivo. Só vale se estiver usando Controle Assistivo. Fora disso, não muda o FF."
+      },
+      {
+        name:"Controle Assistivo — Pausa no primeiro item",
+        rec:"Avançado: desligado",
+        tip:"Pausa adicional na varredura. Pode causar sensação de atraso. Só vale com Controle Assistivo ativo."
+      }
+    ];
+
+    const opt = [
+      {
+        name:"Modo Pouca Energia",
+        rec:"Recomendado: DESLIGADO ao jogar",
+        tip:"Pode reduzir desempenho e aumentar stutter/atraso. Use desligado enquanto joga."
+      },
+      {
+        name:"Atualização em 2º plano",
+        rec:"Recomendado: Desativar apps que não precisa",
+        tip:"Menos coisa rodando = menos oscilação de desempenho e aquecimento."
+      },
+      {
+        name:"Brilho",
+        rec:"Recomendado: 70% a 90%",
+        tip:"Ajuda visibilidade e consistência. Brilho muito baixo piora leitura do alvo e pode dar sensação de mira “imprecisa”."
+      },
+      {
+        name:"Notificações / Foco",
+        rec:"Recomendado: Ativar modo Foco/Jogo",
+        tip:"Evita travadinhas e interrupções durante partida."
+      }
+    ];
+    return {main, advanced, opt};
+  }
+
+  function buildAndroidLists(){
+    const main = [
+      {
+        name:"DPI / Menor largura (Opções do desenvolvedor)",
+        rec:"Recomendado: só ajustar pouco (±20)",
+        tip:"DPI muda o tamanho de tudo na tela. Pode ajudar precisão e HUD, mas valores extremos podem piorar e deixar o sistema estranho. Ajuste com cuidado."
+      },
+      {
+        name:"Sensibilidade de toque (se o aparelho tiver)",
+        rec:"Recomendado: Médio/Alto",
+        tip:"Alguns Android têm opção de sensibilidade de toque. Pode melhorar resposta com película ou dedo mais seco."
+      },
+      {
+        name:"Taxa de atualização (Hz)",
+        rec:"Recomendado: Alta / Máxima",
+        tip:"60/90/120Hz melhora fluidez e controle de mira (se o aparelho suportar)."
+      },
+      {
+        name:"Modo Game / Game Booster (se existir)",
+        rec:"Recomendado: Ativado",
+        tip:"Prioriza CPU/GPU e reduz notificações. Ajuda estabilidade."
+      }
+    ];
+
+    const advanced = [
+      {
+        name:"Escala de animação (Dev options)",
+        rec:"Avançado: 0.5x ou 0x",
+        tip:"Diminui animações do sistema (sensação mais rápida). Não muda sensi do FF, mas melhora “agilidade” fora do jogo."
+      },
+      {
+        name:"Forçar 4x MSAA (Dev options)",
+        rec:"Avançado: geralmente NÃO",
+        tip:"Pode aumentar qualidade mas piora desempenho em muitos aparelhos. Para FF, geralmente não compensa."
+      },
+      {
+        name:"Limite de processos em segundo plano",
+        rec:"Avançado: padrão / leve redução",
+        tip:"Pode ajudar em aparelhos fracos, mas exagerar pode quebrar notificações e apps."
+      }
+    ];
+
+    const opt = [
+      {
+        name:"Economia de bateria",
+        rec:"Recomendado: DESLIGADA ao jogar",
+        tip:"Economia limita desempenho e aumenta delay."
+      },
+      {
+        name:"Apps em segundo plano",
+        rec:"Recomendado: fechar os pesados",
+        tip:"Fecha redes sociais/gravadores pesados. Menos RAM/CPU ocupada = menos travas."
+      },
+      {
+        name:"Aquecimento",
+        rec:"Recomendado: evitar jogar carregando",
+        tip:"Aquecimento derruba desempenho (thermal throttling). Cooler ajuda muito."
+      },
+      {
+        name:"Armazenamento",
+        rec:"Recomendado: manter espaço livre",
+        tip:"Armazenamento cheio pode piorar desempenho geral do sistema."
+      }
+    ];
+
+    return {main, advanced, opt};
+  }
+
+  // Sensi generator
+  function generateSensi(){
+    const os = $("os").value;
     const brand = $("brand").value;
     const model = $("model").value.trim();
     const fps = Number($("fps").value);
     const style = $("style").value;
-    const screen = $("screen").value;
-    const userControl = Number(control.value);
-    const prof = preset.value;
+    const userControl = Number($("control").value);
+    const preset = $("preset").value;
 
-    // Base geral por marca
-    let base = 140; // ponto de partida
+    let base = 140;
     if(brand === "iPhone") base = 150;
     if(brand === "Samsung") base = 145;
     if(brand === "Xiaomi" || brand==="POCO") base = 148;
     if(brand === "Motorola") base = 142;
     if(brand === "Realme") base = 147;
 
-    // FPS tweak
+    // FPS
     if(fps === 90) base -= 2;
     if(fps === 120) base -= 4;
 
-    // Tela
-    if(screen === "small") base += 2;
-    if(screen === "big") base -= 3;
-
-    // Estilo de jogo
+    // Style
     if(style === "rush") base += 6;
     if(style === "mid") base += 1;
     if(style === "long") base -= 6;
 
-    // Perfil geral
-    if(prof === "rush") base += 6;
-    if(prof === "precise") base -= 6;
-    if(prof === "low") base -= 12;
+    // Preset
+    if(preset === "rush") base += 6;
+    if(preset === "precise") base -= 6;
+    if(preset === "low") base -= 12;
 
-    // Controle do usuário (0..100): quanto mais alto, mais “rápido”
-    // Ajuste suave: -18 a +18
+    // Control slider: -18..+18
     base += (userControl - 55) * (18/45);
 
-    // Montar valores derivados (sempre 0..200)
     let geral = clamp(round(base), 0, 200);
 
-    // Scopes: lógica “pro” (red dot mais alto, scopes descem progressivamente)
     let redDot = clamp(round(geral + 8), 0, 200);
     let s2 = clamp(round(geral - 10), 0, 200);
     let s4 = clamp(round(geral - 18), 0, 200);
     let awm = clamp(round(geral - 28), 0, 200);
-    let freeLook = clamp(round(geral + 12), 0, 200);
+    let free = clamp(round(geral + 12), 0, 200);
 
-    // Correções de marca (micro ajustes)
-    if(brand === "iPhone"){
-      // iPhone costuma aceitar geral um pouco mais alto mas scopes mais “controlados”
-      s2 = clamp(s2 - 2, 0, 200);
-      s4 = clamp(s4 - 2, 0, 200);
-      awm = clamp(awm - 2, 0, 200);
-    } else {
-      // Android: red dot pode ser levemente mais alto
-      redDot = clamp(redDot + 1, 0, 200);
-    }
-
-    // Garantir ordem pro feeling certo
-    // redDot >= geral >= 2x >= 4x >= awm
+    // Ensure order
     redDot = Math.max(redDot, geral);
     s2 = Math.min(s2, geral);
     s4 = Math.min(s4, s2);
     awm = Math.min(awm, s4);
 
-    const tag = `${brand}${model?(" • "+model):""} • ${fps}fps • ${style}`;
+    // Micro tweak for iOS (scopes slightly more controlled)
+    if(os === "ios" || brand === "iPhone"){
+      s2 = clamp(s2 - 2, 0, 200);
+      s4 = clamp(s4 - 2, 0, 200);
+      awm = clamp(awm - 2, 0, 200);
+    }
 
-    const tips = buildTips({brand,fps,style,screen,userControl,prof});
+    const tag = `${os==="ios"?"iOS":"Android"} • ${brand}${model?(" • "+model):""} • ${fps}fps • ${style}`;
 
-    showResult({geral,redDot,s2,s4,awm,freeLook, tag, tips});
-  }
-
-  function buildTips(ctx){
-    const t = [];
-    // Checklist “prático”
-    t.push("Faça 3 partidas só com capa curta (red dot) e 3 partidas só médio (2x/4x).");
-    t.push("Se o capa sai ‘passando’: abaixa Geral em -4. Se não chega no capa: sobe Geral em +4.");
-    t.push("Se sua mira treme no 4x: abaixa 4x em -6 (não mexe no resto primeiro).");
-    t.push("Se o puxão fica lento no perto: sobe Red Dot em +6.");
-
-    if(ctx.style==="rush") t.push("Rush: prioriza Red Dot alto e Geral alto (mas mantém 2x/4x mais controlado).");
-    if(ctx.style==="long") t.push("Longo: reduz Geral e 2x pra não ‘passar’ e usa 4x mais baixo.");
-    if(ctx.brand==="iPhone") t.push("iPhone: costuma ficar melhor com scopes (2x/4x) levemente abaixo do geral.");
-    if(ctx.fps>=90) t.push("90/120fps: sua mira fica mais responsiva — ajuste fino com passos menores (+/-2 ou +/-3).");
-    if(ctx.screen==="big") t.push("Tela grande: se passar muito do alvo, reduza Geral em -3 e Red Dot em -3.");
-    if(ctx.userControl>=80) t.push("Você curte rápido: se perder controle, mantenha Geral e reduza 2x/4x em -4.");
-    if(ctx.userControl<=30) t.push("Você curte controlado: se faltar capa, sobe só Red Dot (+4) antes de mexer no Geral.");
-
-    return t;
+    showResult({os, tag, geral, redDot, s2, s4, awm, free});
   }
 
   function showResult(r){
@@ -526,36 +621,51 @@
     $("v2").textContent = r.s2;
     $("v4").textContent = r.s4;
     $("vA").textContent = r.awm;
-    $("vF").textContent = r.freeLook;
+    $("vF").textContent = r.free;
 
-    const ul = r.tips.map(x=>`<li>${x}</li>`).join("");
-    $("tips").innerHTML = `
-      <b style="color:#e9e9e9">Dicas PRO (pra melhorar de verdade):</b>
-      <ul>${ul}</ul>
-    `;
+    // Build OS lists
+    const osTitle = $("osTitle");
+    const osList = $("osList");
+    const advList = $("advList");
+    const optList = $("optList");
+    const optTitle = $("optTitle");
 
+    osList.innerHTML = "";
+    advList.innerHTML = "";
+    optList.innerHTML = "";
+
+    const data = (r.os === "ios") ? buildIosLists() : buildAndroidLists();
+
+    osTitle.textContent = (r.os === "ios") ? "Config do iPhone (iOS)" : "Config do Android";
+    optTitle.textContent = (r.os === "ios") ? "Otimização (iOS)" : "Otimização (Android)";
+
+    data.main.forEach(x => osList.appendChild(itemRow(x)));
+    data.advanced.forEach(x => advList.appendChild(itemRow(x)));
+    data.opt.forEach(x => optList.appendChild(itemRow(x)));
+
+    // Copy buttons
     const summary =
 `FF Treinador PRO
+${r.tag}
 Geral: ${r.geral}
 Red Dot: ${r.redDot}
 2x: ${r.s2}
 4x: ${r.s4}
 AWM: ${r.awm}
-Free Look: ${r.freeLook}`;
+Olhadinha: ${r.free}`;
 
     const full =
 `${summary}
 
-Perfil: ${r.tag}
-
-Ajuste fino rápido:
+Ajuste fino:
 - Se passa do alvo: Geral -4
-- Se falta capa: Geral +4
+- Se não puxa: Geral +4
 - Tremedeira no 4x: 4x -6
-- Rush fraco: Red Dot +6`;
 
-    $("copyOne").onclick = async ()=>copyText(summary);
-    $("copyAll").onclick = async ()=>copyText(full);
+Config do celular e Otimização: veja no site (itens com ⓘ).`;
+
+    $("copyOne").onclick = ()=>copyText(summary);
+    $("copyAll").onclick = ()=>copyText(full);
   }
 
   async function copyText(text){
@@ -563,7 +673,6 @@ Ajuste fino rápido:
       await navigator.clipboard.writeText(text);
       alert("Copiado! ✅");
     }catch(e){
-      // fallback
       const ta = document.createElement("textarea");
       ta.value = text;
       document.body.appendChild(ta);
@@ -574,28 +683,29 @@ Ajuste fino rápido:
     }
   }
 
-  $("gen").addEventListener("click", generate);
+  // Advanced toggle
+  let advOpen = false;
+  $("advBtn").addEventListener("click", ()=>{
+    advOpen = !advOpen;
+    $("advancedWrap").style.display = advOpen ? "block" : "none";
+    $("advBtn").textContent = advOpen ? "Ocultar avançado" : "Mostrar avançado";
+  });
 
+  // Buttons
+  $("gen").addEventListener("click", generateSensi);
   $("reset").addEventListener("click", ()=>{
+    $("os").value="ios";
     $("brand").value="iPhone";
     $("model").value="";
     $("fps").value="60";
     $("style").value="balanced";
-    $("screen").value="mid";
-    control.value=55;
-    preset.value="balanced";
+    $("preset").value="balanced";
+    $("control").value=55;
     updateControlTxt();
     $("result").style.display="none";
-    $("video").value="";
-    $("videoInfo").textContent="";
-  });
-
-  // “Vídeo grátis” (sem IA): só mostra info do arquivo
-  $("video").addEventListener("change", (e)=>{
-    const f = e.target.files?.[0];
-    if(!f){ $("videoInfo").textContent=""; return; }
-    const mb = (f.size/1024/1024).toFixed(2);
-    $("videoInfo").textContent = `Arquivo: ${f.name} • ${mb} MB (upload local, sem IA).`;
+    advOpen = false;
+    $("advancedWrap").style.display="none";
+    $("advBtn").textContent="Mostrar avançado";
   });
 </script>
 </body>
